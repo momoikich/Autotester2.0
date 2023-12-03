@@ -1,0 +1,36 @@
+# le fichier de configuraion gitlab-ci.yml pour lancer la Framework Autotester2
+
+image: docker:latest  
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - evaluate   # Definir notre stage ou job evaluate pour le pipeline 
+
+before_script:
+  - cp -R src src_copy
+
+variables:
+  PYTHONPATH: $PYTHONPATH:$(pwd)/src_copy/scenarios/tools:$(pwd)/src_copy/utils/:$(pwd)/src_copy/isolate/
+
+# stage to build the image docker with dependencies and source code
+build:
+  stage: build
+  script:
+    - docker build -t registry.gitlab.com/projet-long/autotester2/autotester2-image:latest .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push registry.gitlab.com/projet-long/autotester2/autotester2-image:latest
+
+evaluate:
+  # utiliser image docker contenant les dependances nécessaires et le code source de notre projet
+  image : registry.gitlab.com/projet-long/autotester2/autotester2-image:latest  
+  stage: evaluate
+  script:
+    - export PYTHONPATH=$PYTHONPATH:./src_copy/utils
+    - export PYTHONPATH=$PYTHONPATH:./src_copy/utils:./src_copy/scenarios/results
+    - export PYTHONPATH=$PYTHONPATH:./src_copy/isolate
+    - export PYTHONPATH=$PYTHONPATH:./src_copy/main
+    # lancer le main script sh du pipeline 
+    - sh src/main/main_pipeline.sh

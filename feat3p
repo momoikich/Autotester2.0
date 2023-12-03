@@ -1,0 +1,3 @@
+#!/bin/bash
+# creer une abreviation pour lancer le main programm 
+python3 -B $PWD/src/main/main.py  "$@"

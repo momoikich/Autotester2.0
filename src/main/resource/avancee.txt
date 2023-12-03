@@ -1,0 +1,15 @@
+Date d'execution : {{date}}
+{% for scenario_name in scenarios_data %}
+{{scenario_name}}
+{%- for student_name, student_score in students_data.items() %}
+-------------------------------------------
+{{student_name}} : {{student_score[scenario_name]}}
+{%- endfor %}
+-------------------------------------------
+{% endfor %}
+Score total obtenu par les etudiants :
+{%- for name, score in scores_data %}
+-------------------------------------------
+{{name}} : {{score}}
+{%- endfor %}
+-------------------------------------------

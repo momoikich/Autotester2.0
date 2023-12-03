@@ -1,0 +1,8 @@
+{   
+    "username" : "$username",
+    "password" : "$password",
+    "mail" : "$mail",
+    "matiere" : "$matiere",
+    "gitlabArbre" : "$gitlabArbre", 
+    "repository_path" : "$repository_path"
+}

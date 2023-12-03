@@ -1,0 +1,26 @@
+help: featpp [sous-programme] [arguments du sous-programme]
+
+Les sous-programmes sont à choisir parmi :
+
+|setup : crée la base de données associée à un tp
+|___
+    |arg1 : le nom de la matiere
+    |arg2 : le nom du tp
+
+|evaluateOnDemand : lance des batteries de tests sur ce projet (s'execute automatiquement sur Gtilab-ci après un commit dans un projet etudiant)
+|___
+    |arg1 : url du projet etudiant
+    |arg2 : liste des dossiers des tps à tester.
+
+|evaluate : lance des batteries de tests sur un étudiant et un TP en particulier
+|___
+    |arg1 : le nom de la matiere
+    |arg2 : le login de l'étudiant
+    |arg3 : le nom du tp
+    |arg4 : les scenarios à tester
+
+|evaluateAll : lance des batteries de tests sur tout les étudiants d'une promo et un TP en particulier
+|___
+    |arg1 : le nom de la matiere
+    |arg2 : le nom du tp
+    |arg3 : les scenarios à tester

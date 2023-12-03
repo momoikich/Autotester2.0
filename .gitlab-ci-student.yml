@@ -1,0 +1,17 @@
+# le fichier de configuraion gitlab-ci-etudiant.yml pour declencher le pipeline du Framework Autotester2
+# depuis le projet Git de l'étudiant.
+
+stages:
+  # Definir le stage ou job trigger declenchant le pipeline de Autotester2
+  - trigger
+
+trigger:
+  stage: trigger
+  rules:
+    # Ne lancer ce job que si l'etudiant a fait un commit sur la branche main
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    # Declencher le pipeline de Autotester2 à partir de son trigger token, et son project Id.
+    # Faire passer les deux variables PROJECT_SOURCE_ID et COMMIT_SOURCE_SHA, qui correspondent respectivement à Id du projet étudiant et SHA du commit de l'étudiant.
+    - "curl -X POST --fail -F token=$trigger_token -F ref=main -F variables[PROJECT_SOURCE_ID]=$CI_PROJECT_ID -F variables[COMMIT_SOURCE_SHA]=$CI_COMMIT_SHA https://gitlab.com/api/v4/projects/$project_autotester2_id/trigger/pipeline"
+

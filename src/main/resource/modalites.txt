@@ -1,0 +1,14 @@
+Voulez-vous jouer tous les tests (oui / non) ? {{choice_all}}
+Voulez-vous jouer tous les tests qui n'ont pas de restriction de tentatives (infini) ? {{choice_all_not_limited}}
+{% for name, visible, choice, attempts, last_time, next_time, attempts_done in scenario_data %}
+{%- if visible %}
+{{name}} : {{choice}}
+    {%- if attempts >= 0 %}
+    nombre de tentatives restantes = {{attempts}}
+    {%- else %}
+    nombre de tentatives infini, vous avez joue ce test {{attempts_done}} fois
+    {%- endif %}
+    derniere tentative = {{last_time}}
+    prochaine tentative possible = {{next_time}}
+{% endif %}
+{%- endfor %}
